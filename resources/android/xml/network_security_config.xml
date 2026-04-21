@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
-    <base-config cleartextTrafficPermitted="true" />
+    <!-- Default: Only allow secure HTTPS traffic -->
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+
+    <!-- Special rule for your school domain to bypass cert validation issues -->
+    <domain-config cleartextTrafficPermitted="false">
+        <!-- Use includeSubdomains="true" to cover subdomains like moodle.jct.ac.il -->
+        <domain includeSubdomains="true">jct.ac.il</domain>
+        <trust-anchors>
+            <!-- Trust both system CAs and any certificates manually installed by the user -->
+            <certificates src="system" />
+            <certificates src="user" />
+        </trust-anchors>
+    </domain-config>
 </network-security-config>
