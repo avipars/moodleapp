@@ -1,17 +1,13 @@
 {
   "name": "Moodle App Android Build",
-  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
   "features": {
     "ghcr.io/devcontainers/features/java:1": {
       "version": "17",
       "installMaven": "false",
       "installGradle": "false"
-    },
-    "ghcr.io/devcontainers/features/node:1": {
-      "version": "20"
     }
   },
-  "onCreateCommand": "sudo apt-get update && sudo apt-get install -y android-sdk && echo 'export ANDROID_SDK_ROOT=/usr/lib/android-sdk' >> ~/.bashrc && echo 'export PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools' >> ~/.bashrc",
   "postCreateCommand": "npm install && npx cordova platform add android",
   "customizations": {
     "vscode": {
@@ -22,6 +18,5 @@
       ]
     }
   },
-  "forwardPorts": [],
-  "remoteUser": "root"
+  "remoteUser": "codespace"
 }
