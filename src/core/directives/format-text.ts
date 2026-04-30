@@ -679,7 +679,7 @@ export class CoreFormatTextDirective implements OnDestroy, AsyncDirective {
                         newScript.setAttribute(attr.name, attr.value);
                     }
                 });
-                newScript.src = url;
+                newScript.src = CoreUrl.resolveProtocolRelativeUrl(url, site?.getURL());
 
                 script.replaceWith(newScript);
             } else {
@@ -1109,6 +1109,7 @@ export class CoreFormatTextDirective implements OnDestroy, AsyncDirective {
 
             return;
         } else if (site && (iframe.dataset[DATASET_APP_SITE_REFERER] === 'true' || CoreUrl.urlNeedsReferer(src))) {
+            iframe.dataset[DATASET_APP_SITE_REFERER] = 'false'; // Avoid doing this multiple times if treated more than once.
             src = site.fixRefererForUrl(src);
         }
 
